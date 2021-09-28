@@ -1,0 +1,59 @@
+---
+title: "homework1"
+author: "ShibeiXusx2267"
+date: "2021/9/28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Problem 1
+
+Loading the library tidyverse
+
+```{r loading_library,echo = FALSE}
+library(tidyverse)
+```
+
+Set seed and create a dataset hw_df1 that contains required variable
+```{r df_create}
+set.seed(123)
+hw_df1 = tibble(
+  vec_num = rnorm(10, sd = .5),
+  vec_log = vec_num>0,
+  vec_char = c("a","b","c","d","e","f","g","h","i","j"),
+  vec_factor=factor(c("a","b","c","d","e","f","g","h","i","j"))
+)
+```
+The mean of the vector numerical is `r mean(pull(hw_df1, vec_num))`;
+The mean of the vector logical is `r mean(pull(hw_df1, vec_log))`;
+The mean of the vector character is `r mean(pull(hw_df1, vec_char))`;
+The mean of the vector factor is `r mean(pull(hw_df1, vec_factor))`.
+
+The mean of vector numerical and vector logical works, but the mean can not be calculated for character vector and factor vector.
+
+```{r as-numeric,echo=TRUE,warning=FALSE}
+as.numeric(pull(hw_df1,vec_log))
+as.numeric(pull(hw_df1,vec_char))
+as.numeric(pull(hw_df1,vec_factor))
+```
+After applying the as.numeric function, the logical vector still contains "0" and "1", the character vector turns to "NAs" and the factor vector turns to "1"-"10". This explains the property of these vector, the character vector can not be transformed into numbers so the mean and as.numeric result are both NA, the factor however, can be transformed into numeric, thus the mean is NA but the it can be transformed into numbers. The logical vector contains only true and false and already assigned with 0 and 1,thus the mean is 0.5.
+
+## Problem 2
+
+Install package and load the dataset
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+The dataset penguin is a `r size_sum(penguins)` dataset with `r ncol(penguins)` variables and `r nrow(penguins)` data input. The variables of this dataset includes `r names(penguins)`,in which bill_length, bill depth, year and flipper length are numeric, others are factor. The species of penguins include in this dataset are `r levels(penguins$species)` living in `r levels(pull(penguins,island))` island. The mean of flipper length is `r mean(pull(penguins, flipper_length_mm),na.rm=TRUE)`.
+
+Generating scatterplot
+```{r graph,warning=FALSE}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm,color=species)) + geom_point()
+```
+```{r savegraph,warning=FALSE}
+ggsave("scatter_plot1.pdf", height = 4, width = 6)
+```
+
