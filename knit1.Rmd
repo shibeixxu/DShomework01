@@ -23,7 +23,7 @@ hw_df1 = tibble(
   vec_num = rnorm(10, sd = .5),
   vec_log = vec_num>0,
   vec_char = c("a","b","c","d","e","f","g","h","i","j"),
-  vec_factor=factor(c("a","b","c","d","e","f","g","h","i","j"))
+  vec_factor=factor(c("a","b","c","a","b","c","a","b","c","a"))
 )
 ```
 The mean of the vector numerical is `r mean(pull(hw_df1, vec_num))`;

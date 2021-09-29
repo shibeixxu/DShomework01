@@ -188,7 +188,7 @@ hw_df1 = tibble(
   vec_num = rnorm(10, sd = .5),
   vec_log = vec_num&gt;0,
   vec_char = c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;,&quot;f&quot;,&quot;g&quot;,&quot;h&quot;,&quot;i&quot;,&quot;j&quot;),
-  vec_factor=factor(c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;,&quot;f&quot;,&quot;g&quot;,&quot;h&quot;,&quot;i&quot;,&quot;j&quot;))
+  vec_factor=factor(c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;a&quot;))
 )</code></pre>
 <p>The mean of the vector numerical is 0.0373128; The mean of the vector logical is 0.5; The mean of the vector character is NA; The mean of the vector factor is NA.</p>
 <p>The mean of vector numerical and vector logical works, but the mean can not be calculated for character vector and factor vector.</p>
@@ -197,7 +197,7 @@ hw_df1 = tibble(
 <pre class="r"><code>as.numeric(pull(hw_df1,vec_char))</code></pre>
 <pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA</code></pre>
 <pre class="r"><code>as.numeric(pull(hw_df1,vec_factor))</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1</code></pre>
 <p>After applying the as.numeric function, the logical vector still contains “0” and “1”, the character vector turns to “NAs” and the factor vector turns to “1”-“10”. This explains the property of these vector, the character vector can not be transformed into numbers so the mean and as.numeric result are both NA, the factor however, can be transformed into numeric, thus the mean is NA but the it can be transformed into numbers. The logical vector contains only true and false and already assigned with 0 and 1,thus the mean is 0.5.</p>
 </div>
 <div id="problem-2" class="section level2">
